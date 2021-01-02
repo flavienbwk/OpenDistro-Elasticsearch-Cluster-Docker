@@ -8,13 +8,13 @@ Note : It is a bit more of a pain to configure TLS on OpenDistro than the [origi
 
 First, you will need to raise your host's ulimits for ElasticSearch to handle high I/O :
 
-```console
+```bash
 sudo sysctl -w vm.max_map_count=500000
 ```
 
 Now, we will [generate the certificates](https://opendistro.github.io/for-elasticsearch-docs/docs/security/configuration/generate-certificates/) for your cluster :
 
-```console
+```bash
 # Copy paste from this project root directory
 
 mkdir -p certs/{ca,kibana,es01,es02,es03}
@@ -65,13 +65,13 @@ unset OPENDISTRO_DN
 
 Start the cluster :
 
-```console
+```bash
 docker-compose up -d
 ```
 
 Finally, run `securityadmin` to initialize the security plugin :
 
-```console
+```bash
 docker-compose exec es01 bash -c "chmod +x plugins/opendistro_security/tools/securityadmin.sh && bash plugins/opendistro_security/tools/securityadmin.sh -cd plugins/opendistro_security/securityconfig -icl -nhnv -cacert config/certificates/ca/ca.pem -cert config/certificates/ca/admin.pem -key config/certificates/ca/admin.key -h localhost"
 ```
 
