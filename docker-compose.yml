@@ -1,0 +1,95 @@
+version: '3.3'
+
+services:
+
+  es01:
+    restart: always
+    image: amazon/opendistro-for-elasticsearch:1.12.0
+    environment:
+      ES_JAVA_OPTS: "-Xms2048m -Xmx2048m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+      node.name: es01
+      opendistro_security.ssl.transport.pemkey_filepath: certificates/es01/es01.key # relative path
+      opendistro_security.ssl.transport.pemcert_filepath: certificates/es01/es01.pem
+      opendistro_security.ssl.http.pemkey_filepath: certificates/es01/es01.key
+      opendistro_security.ssl.http.pemcert_filepath: certificates/es01/es01.pem
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+    ulimits: 
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - "./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
+      - "odfe-data1:/usr/share/elasticsearch/data"
+      - "./certs:/usr/share/elasticsearch/config/certificates:ro"
+    ports:
+      - 9200:9200
+      - 9600:9600 # required for Performance Analyzer
+    networks:
+      - odfe-net
+  
+  es02:
+    restart: always
+    image: amazon/opendistro-for-elasticsearch:1.12.0
+    environment:
+      ES_JAVA_OPTS: "-Xms2048m -Xmx2048m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+      node.name: es02
+      opendistro_security.ssl.transport.pemkey_filepath: certificates/es02/es02.key # relative path
+      opendistro_security.ssl.transport.pemcert_filepath: certificates/es02/es02.pem
+      opendistro_security.ssl.http.pemkey_filepath: certificates/es02/es02.key
+      opendistro_security.ssl.http.pemcert_filepath: certificates/es02/es02.pem
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+    ulimits: 
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - "./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
+      - "odfe-data2:/usr/share/elasticsearch/data"
+      - "./certs:/usr/share/elasticsearch/config/certificates:ro"
+    networks:
+      - odfe-net
+  
+  es03:
+    restart: always
+    image: amazon/opendistro-for-elasticsearch:1.12.0
+    environment:
+      ES_JAVA_OPTS: "-Xms2048m -Xmx2048m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+      node.name: es03
+      opendistro_security.ssl.transport.pemkey_filepath: certificates/es03/es03.key # relative path
+      opendistro_security.ssl.transport.pemcert_filepath: certificates/es03/es03.pem
+      opendistro_security.ssl.http.pemkey_filepath: certificates/es03/es03.key
+      opendistro_security.ssl.http.pemcert_filepath: certificates/es03/es03.pem
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+    ulimits: 
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - "./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
+      - "odfe-data3:/usr/share/elasticsearch/data"
+      - "./certs:/usr/share/elasticsearch/config/certificates:ro"
+    networks:
+      - odfe-net
+  
+  kibana:
+    restart: always
+    image: amazon/opendistro-for-elasticsearch-kibana:1.12.0
+    ports:
+      - 5601:5601
+    volumes:
+      - "./certs:/usr/share/elasticsearch/config/certificates:ro"
+      - "./kibana.yml:/usr/share/kibana/config/kibana.yml"
+    environment:
+      ELASTICSEARCH_URL: https://es01:9200
+      ELASTICSEARCH_HOSTS: https://es01:9200
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+    networks:
+      - odfe-net
+
+volumes:
+  odfe-data1:
+  odfe-data2:
+  odfe-data3:
+
+networks:
+  odfe-net:
