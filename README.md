@@ -1,5 +1,8 @@
 # OpenDistro cluster - Docker
 
+![OpenDistro version](https://img.shields.io/badge/OpenDistro%20version-1.12.0-blue)
+![OpenDistro version](https://img.shields.io/badge/ElasticSearch%20version-7.10.0-blue)
+
 A fully functional OpenDistro cluster configuration (of 3 ElasticSearch nodes) with TLS enabled and explained. Run with Docker.
 
 Note : It is a bit more of a pain to configure TLS on OpenDistro than the [original Elastic stack](https://github.com/flavienbwk/Secure-Docker-ELK-Cluster) but with some efforts it works !
