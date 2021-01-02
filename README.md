@@ -88,6 +88,7 @@ Access Kibana through [https://localhost:5601](https://localhost:5601)
 
 - Fully open source (including plugins)
 - Fully under Apache 2.0 license
-- Advanced security modules are free
+- Advanced security plugin (free)
+- Alerting plugin (free)
 - Allows you to [perform SQL queries against ElasticSearch](https://opendistro.github.io/for-elasticsearch-docs/docs/sql/)
 - Maintained by AWS and used for its cloud services
