@@ -75,7 +75,7 @@ Finally, run `securityadmin` to initialize the security plugin :
 docker-compose exec es01 bash -c "chmod +x plugins/opendistro_security/tools/securityadmin.sh && bash plugins/opendistro_security/tools/securityadmin.sh -cd plugins/opendistro_security/securityconfig -icl -nhnv -cacert config/certificates/ca/ca.pem -cert config/certificates/ca/admin.pem -key config/certificates/ca/admin.key -h localhost"
 ```
 
-> Find all the configuration files under the container's `plugins/opendistro_security/securityconfig` directory. You might want to [mount them as volumes](https://opendistro.github.io/for-elasticsearch-docs/docs/install/docker-security/).
+> Find all the configuration files in the container's `/usr/share/elasticsearch/plugins/opendistro_security/securityconfig` directory. You might want to [mount them as volumes](https://opendistro.github.io/for-elasticsearch-docs/docs/install/docker-security/).
 
 Access Kibana through [https://localhost:5601](https://localhost:5601)
 

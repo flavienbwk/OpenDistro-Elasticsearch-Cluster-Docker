@@ -24,8 +24,6 @@ services:
     ports:
       - 9200:9200
       - 9600:9600 # required for Performance Analyzer
-    networks:
-      - odfe-net
   
   es02:
     restart: always
@@ -46,8 +44,6 @@ services:
       - "./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
       - "odfe-data2:/usr/share/elasticsearch/data"
       - "./certs:/usr/share/elasticsearch/config/certificates:ro"
-    networks:
-      - odfe-net
   
   es03:
     restart: always
@@ -68,8 +64,6 @@ services:
       - "./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
       - "odfe-data3:/usr/share/elasticsearch/data"
       - "./certs:/usr/share/elasticsearch/config/certificates:ro"
-    networks:
-      - odfe-net
   
   kibana:
     restart: always
@@ -83,13 +77,8 @@ services:
       ELASTICSEARCH_URL: https://es01:9200
       ELASTICSEARCH_HOSTS: https://es01:9200
       DISABLE_INSTALL_DEMO_CONFIG: "true"
-    networks:
-      - odfe-net
 
 volumes:
   odfe-data1:
   odfe-data2:
   odfe-data3:
-
-networks:
-  odfe-net:
